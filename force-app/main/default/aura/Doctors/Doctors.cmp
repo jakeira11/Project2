@@ -1,0 +1,35 @@
+<aura:component controller="DocCtrl">
+    <aura:attribute name="docId" type="ID"/>
+    <aura:attribute name="docName" type="String"/>
+    <aura:attribute name="doc" type="Doctor__c"/>
+    <aura:attribute name="appList" type="Appointment__c[]"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div class="slds-box">
+        <ul>
+            <li>Name: {!v.doc.Name}</li>
+            <li>Date of Birth: {!v.doc.Date_of_Birth__c}</li>
+            <li>Phone: {!v.doc.Phone__c}</li>
+            <li>Email: {!v.doc.Email__c}</li>
+            <li>Languages: {!v.doc.Languages__c}</li>
+            <li>Gender: {!v.doc.Gender__c}</li>
+            <li>Specializations: {!v.doc.Specialization__c}</li>
+        </ul>
+    </div>
+    <div class="slds-box">
+        <aura:iteration items="{!v.appList}" var="app">
+            <ul>
+                <li>Appointment Name: {!app.Name}</li>
+                <li>Appointment Time: {!app.Appointment_Time__c}</li>
+                <li>Location: {!app.Location__c}</li>
+                <li>Patient ID: {!app.Patient__c}</li>
+                <li>Patient Name: {!app.Patient__r.Name}</li>
+                <li>Patient Phone: {!app.Patient__r.Phone}</li>
+                <li>Patient Email: {!app.Patient__r.Email}</li>
+            </ul>
+            <br /><br />
+        </aura:iteration>
+    </div>
+    
+</aura:component>	
