@@ -13,7 +13,7 @@
             <li>Email: {!v.doc.Email__c}</li>
             <li>Languages: {!v.doc.Languages__c}</li>
             <li>Gender: {!v.doc.Gender__c}</li>
-            <li>Specializations: {!v.doc.Specializations__c}</li>
+            <li>Specializations: {!v.doc.Specialization__c}</li>
         </ul>
     </div>
     
