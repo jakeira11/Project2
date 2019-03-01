@@ -1,0 +1,4 @@
+<aura:component>
+    <aura:attribute name="DocName" type="String" />
+    <force:recordView recordId="{!v.docName}" type="MINI"/>
+</aura:component>

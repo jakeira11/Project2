@@ -1,0 +1,20 @@
+<aura:component controller="DocCtrl">
+    <aura:attribute name="docId" type="ID"/>
+    <aura:attribute name="docName" type="String"/>
+    <aura:attribute name="doc" type="Doctor__c"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div class="slds-box">
+        <ul>
+            <li>Name: {!v.doc.Name}</li>
+            <li>Date of Birth: {!v.doc.Date_of_Birth__c}</li>
+            <li>Phone: {!v.doc.Phone__c}</li>
+            <li>Email: {!v.doc.Email__c}</li>
+            <li>Languages: {!v.doc.Languages__c}</li>
+            <li>Gender: {!v.doc.Gender__c}</li>
+            <li>Specializations: {!v.doc.Specializations__c}</li>
+        </ul>
+    </div>
+    
+</aura:component>	
