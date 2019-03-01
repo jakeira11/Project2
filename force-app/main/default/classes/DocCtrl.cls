@@ -10,4 +10,16 @@ public class DocCtrl {
                              WHERE id = :docId];
         return d[0];
     }
+
+    @AuraEnabled
+    public static List<Appointment__c> getAppList(id docId){
+        if (!Schema.sObjectType.Appointment__c.isAccessible()){
+            throw new AuraHandledException('You cannot access the Doctor object');
+        }
+        List<Appointment__c> a = [SELECT id, name, doctor__c, patient__c, appointment_time__c, location__c, 
+                                         patient__r.name, patient__r.email, patient__r.phone
+                                  FROM Appointment__c 
+                                  WHERE doctor__c = :docId];
+        return a;
+    }
 }

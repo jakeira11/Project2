@@ -15,5 +15,23 @@
 
         $A.enqueueAction(getDoc);
         
+    },
+
+    loadAppList : function(component) {
+        var getAppList =  component.get("c.getAppList");
+
+        getAppList.setParams({
+            docId : component.get("v.docId")
+        })
+
+        getAppList.setCallback(this, function(response){
+            var state = response.getState();
+            if (state === "SUCCESS"){
+                component.set("v.appList",response.getReturnValue());
+            }
+        });
+
+        $A.enqueueAction(getAppList);
+        
     }
 })
