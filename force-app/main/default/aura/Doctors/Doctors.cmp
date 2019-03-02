@@ -1,34 +1,53 @@
 <aura:component controller="DocCtrl">
     <aura:attribute name="docId" type="ID"/>
-    <aura:attribute name="docName" type="String"/>
     <aura:attribute name="doc" type="Doctor__c"/>
+    <aura:attribute name="languages" type="String"/>
+    <aura:attribute name="specs" type="String"/>
     <aura:attribute name="appList" type="Appointment__c[]"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    
+
+
     <div class="slds-box">
+        
         <ul>
             <li>Name: {!v.doc.Name}</li>
-            <li>Date of Birth: {!v.doc.Date_of_Birth__c}</li>
-            <li>Phone: {!v.doc.Phone__c}</li>
-            <li>Email: {!v.doc.Email__c}</li>
-            <li>Languages: {!v.doc.Languages__c}</li>
+            <li>Date of Birth: <lightning:formattedDateTime value="{!v.doc.Date_of_Birth__c}" 
+                                                            year="numeric" 
+                                                            month="short" 
+                                                            day="2-digit"/></li>
+            <li>Phone: <lightning:formattedPhone value="{!v.doc.Phone__c}"/></li>
+            <li>Email: <lightning:formattedEmail value="{!v.doc.Email__c}"/></li>
+            <li>Languages: {!v.languages}</li>
             <li>Gender: {!v.doc.Gender__c}</li>
-            <li>Specializations: {!v.doc.Specialization__c}</li>
+            <li>Specializations: {!v.specs}</li>
         </ul>
     </div>
     <div class="slds-box">
         <aura:iteration items="{!v.appList}" var="app">
+            <br />
             <ul>
                 <li>Appointment Name: {!app.Name}</li>
-                <li>Appointment Time: {!app.Appointment_Time__c}</li>
+                <li>Appointment Time: <lightning:formattedDateTime value="{!app.Appointment_Time__c}" 
+                                                                   year="numeric" 
+                                                                   month="short" 
+                                                                   day="2-digit" 
+                                                                   hour="2-digit" 
+                                                                   minute="2-digit" 
+                                                                   weekday="short"
+                                                                   timeZone="America/New_York" 
+                                                                   timeZoneName="short"/></li>
                 <li>Location: {!app.Location__c}</li>
-                <li>Patient ID: {!app.Patient__c}</li>
                 <li>Patient Name: {!app.Patient__r.Name}</li>
-                <li>Patient Phone: {!app.Patient__r.Phone}</li>
-                <li>Patient Email: {!app.Patient__r.Email}</li>
+                <li>Patient Phone: <lightning:formattedPhone value="{!app.Patient__r.Phone}"/></li>
+                <li>Patient Email: <lightning:formattedEmail value="{!app.Patient__r.Email}"/></li>
+                <li>Patient Address: <lightning:formattedAddress street="{!app.Patient__r.MailingStreet}"
+                                                                 city="{!app.Patient__r.MailingCity}"
+                                                                 country="{!app.Patient__r.MailingCountry}"
+                                                                 province="{!app.Patient__r.MailingState}"
+                                                                 postalCode="{!app.Patient__r.MailingPostalCode}"/></li>
             </ul>
-            <br /><br />
+            <br />
         </aura:iteration>
     </div>
     
