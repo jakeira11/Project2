@@ -37,7 +37,12 @@
                                                                    weekday="short"
                                                                    timeZone="America/New_York" 
                                                                    timeZoneName="short"/></li>
-                <li>Location: {!app.Location__c}</li>
+                <li>Practice: {!app.Practice__r.Name}</li>
+                <li>Practice Address: <lightning:formattedAddress street="{!app.Practice__r.Street__c}"
+                                                                  city="{!app.Practice__r.City__c}"
+                                                                  country="{!app.Practice__r.Country__c}"
+                                                                  province="{!app.Practice__r.State__c}"
+                                                                  postalCode="{!app.Practice__r.ZipCode__c}"/></li>
                 <li>Patient Name: {!app.Patient__r.Name}</li>
                 <li>Patient Phone: <lightning:formattedPhone value="{!app.Patient__r.Phone}"/></li>
                 <li>Patient Email: <lightning:formattedEmail value="{!app.Patient__r.Email}"/></li>

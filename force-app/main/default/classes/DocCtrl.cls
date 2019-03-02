@@ -16,10 +16,12 @@ public class DocCtrl {
         if (!Schema.sObjectType.Appointment__c.isAccessible()){
             throw new AuraHandledException('You cannot access the Doctor object');
         }
-        List<Appointment__c> a = [SELECT id, name, doctor__c, patient__c, appointment_time__c, location__c, 
+        List<Appointment__c> a = [SELECT id, name, doctor__c, appointment_time__c, 
                                          patient__r.name, patient__r.email, patient__r.phone,
                                          patient__r.MailingStreet, patient__r.MailingState, patient__r.MailingCity,
-                                         patient__r.MailingPostalCode,  patient__r.MailingCountry
+                                         patient__r.MailingPostalCode,  patient__r.MailingCountry,
+                                         practice__r.Name, practice__r.Street__c, practice__r.City__c,
+                                         practice__r.State__c, practice__r.ZipCode__c
                                   FROM Appointment__c 
                                   WHERE doctor__c = :docId];
         return a;
