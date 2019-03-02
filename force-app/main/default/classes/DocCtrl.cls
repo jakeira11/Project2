@@ -23,7 +23,8 @@ public class DocCtrl {
                                          practice__r.Name, practice__r.Street__c, practice__r.City__c,
                                          practice__r.State__c, practice__r.ZipCode__c
                                   FROM Appointment__c 
-                                  WHERE doctor__c = :docId];
+                                  WHERE doctor__c = :docId
+                                  ORDER BY appointment_time__c ASC];
         return a;
     }
 }
