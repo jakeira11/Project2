@@ -1,7 +1,8 @@
 <aura:component>
     <div class="slds-box">
-        <lightning:icon iconName="action:approval" variant="inverse" size="small"/>
+        <lightning:icon iconName="standard:event" alternativeText="Event" size="large" />
         <h3 class="header">Doctor Information</h3>
+        
         
     </div>
 </aura:component>	
