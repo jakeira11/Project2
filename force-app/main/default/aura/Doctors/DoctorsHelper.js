@@ -13,7 +13,7 @@
                 component.set("v.doc",response.getReturnValue());
 
                 //Set Languages attribute in the View with semicolons replaced with commas and spaces
-                var lang = component.get("v.doc.Languages__c");
+                var lang = component.get("v.doc.Language__c");
                 component.set("v.languages",lang.replace(/;/g,', '));
 
                 //Set Specializations attribute in the View with semicolons replaced with commas and spaces

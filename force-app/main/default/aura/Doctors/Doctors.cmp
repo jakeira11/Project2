@@ -22,11 +22,10 @@
         <ul>
             <br />
             <li>Name: {!v.doc.Name}</li>           
-
             <li>Date of Birth: <lightning:formattedDateTime value="{!v.doc.Date_of_Birth__c}" 
-                year="numeric" 
-                month="short" 
-                day="2-digit"/>
+                                                            year="numeric" 
+                                                            month="short" 
+                                                            day="2-digit"/>
             </li>         
             <li>Phone: <lightning:formattedPhone value="{!v.doc.Phone__c}"/></li>
             <li>Email: <lightning:formattedEmail value="{!v.doc.Email__c}"/></li>
@@ -50,31 +49,31 @@
         <div class="slds-grid slds-wrap">
         <div class="slds-col slds-size_6-of-12">
         <span>
-            <ul class="slds-list--vertical">
+            <ul class="slds-list_vertical">
                 <li class="slds-list__item">Appointment Name: {!app.Name}</li>
                 <li class="slds-list__item">Appointment Time: <lightning:formattedDateTime value="{!app.Appointment_Time__c}" 
-                                                                    year="numeric" 
-                                                                    month="short" 
-                                                                    day="2-digit" 
-                                                                    hour="2-digit" 
-                                                                    minute="2-digit" 
-                                                                    weekday="short"
-                                                                    timeZone="America/New_York" 
-                                                                    timeZoneName="short"/></li>
+                                                                                           year="numeric" 
+                                                                                           month="short" 
+                                                                                           day="2-digit" 
+                                                                                           hour="2-digit" 
+                                                                                           minute="2-digit" 
+                                                                                           weekday="short"
+                                                                                           timeZone="America/New_York" 
+                                                                                           timeZoneName="short"/></li>
                 <li class="slds-list__item">Practice: {!app.Practice__r.Name}</li>
                 <li class="slds-list__item">Practice Address: <lightning:formattedAddress street="{!app.Practice__r.Street__c}"
-                                                                    city="{!app.Practice__r.City__c}"
-                                                                    country="{!app.Practice__r.Country__c}"
-                                                                    province="{!app.Practice__r.State__c}"
-                                                                    postalCode="{!app.Practice__r.ZipCode__c}"/></li>
+                                                                                          city="{!app.Practice__r.City__c}"
+                                                                                          country="{!app.Practice__r.Country__c}"
+                                                                                          province="{!app.Practice__r.State__c}"
+                                                                                          postalCode="{!app.Practice__r.ZipCode__c}"/></li>
                 <li class="slds-list__item">Patient Name: {!app.Patient__r.Name}</li>
                 <li class="slds-list__item">Patient Phone: <lightning:formattedPhone value="{!app.Patient__r.Phone}"/></li>
                 <li class="slds-list__item">Patient Email: <lightning:formattedEmail value="{!app.Patient__r.Email}"/></li>
                 <li class="slds-list__item">Patient Address: <lightning:formattedAddress street="{!app.Patient__r.MailingStreet}"
-                                                                    city="{!app.Patient__r.MailingCity}"
-                                                                    country="{!app.Patient__r.MailingCountry}"
-                                                                    province="{!app.Patient__r.MailingState}"
-                                                                    postalCode="{!app.Patient__r.MailingPostalCode}"/></li>
+                                                                                         city="{!app.Patient__r.MailingCity}"
+                                                                                         country="{!app.Patient__r.MailingCountry}"
+                                                                                         province="{!app.Patient__r.MailingState}"
+                                                                                         postalCode="{!app.Patient__r.MailingPostalCode}"/></li>
             </ul>
         </span>
         </div>
