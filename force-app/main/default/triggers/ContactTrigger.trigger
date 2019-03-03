@@ -3,9 +3,9 @@ trigger ContactTrigger on Contact (before insert,before update, before delete, a
     if (Trigger.isBefore){
 
         if (Trigger.isInsert){
-
+            NewPolicy.updatePrices(Trigger.newMap,Trigger.oldMap);
         } else if (Trigger.isUpdate){
-
+            NewPolicy.updatePrices(Trigger.newMap,Trigger.oldMap);
         } else if (Trigger.isDelete){
 
         }
