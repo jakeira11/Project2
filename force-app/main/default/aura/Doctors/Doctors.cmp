@@ -5,9 +5,89 @@
     <aura:attribute name="specs" type="String"/>
     <aura:attribute name="appList" type="Appointment__c[]"/>
 
+
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
+    <div class="slds-box">
+        <span class="slds-avatar slds-avatar_large">
+            <abbr 
+                class="slds-avatar__initials slds-icon-standard-account" 
+                title="company name">
+                    SM
+            </abbr> 
+        </span>
+       
+        <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_6-of-12">
+        <ul>
+            <br />
+            <li>Name: {!v.doc.Name}</li>           
 
+            <li>Date of Birth: <lightning:formattedDateTime value="{!v.doc.Date_of_Birth__c}" 
+                year="numeric" 
+                month="short" 
+                day="2-digit"/>
+            </li>         
+            <li>Phone: <lightning:formattedPhone value="{!v.doc.Phone__c}"/></li>
+            <li>Email: <lightning:formattedEmail value="{!v.doc.Email__c}"/></li>
+            <li>Languages: {!v.languages}</li>
+            <li>Gender: {!v.doc.Gender__c}</li>
+            <li>Specializations: {!v.specs}</li>
+        </ul>
+        </div>
+        <div class="slds-col slds-size_6-of-12">
+            
+           <img 
+                src="https://img4.androidappsapk.co/300/d/7/b/com.ayouzmobile.doctor_heart_listiner.png"/>
+           
+        </div>
+       
+        </div>
+    </div>
+    
+    <aura:iteration items="{!v.appList}" var="app">
+        <div class="slds-box">
+        <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_6-of-12">
+        <span>
+            <ul class="slds-list--vertical">
+                <li class="slds-list__item">Appointment Name: {!app.Name}</li>
+                <li class="slds-list__item">Appointment Time: <lightning:formattedDateTime value="{!app.Appointment_Time__c}" 
+                                                                    year="numeric" 
+                                                                    month="short" 
+                                                                    day="2-digit" 
+                                                                    hour="2-digit" 
+                                                                    minute="2-digit" 
+                                                                    weekday="short"
+                                                                    timeZone="America/New_York" 
+                                                                    timeZoneName="short"/></li>
+                <li class="slds-list__item">Practice: {!app.Practice__r.Name}</li>
+                <li class="slds-list__item">Practice Address: <lightning:formattedAddress street="{!app.Practice__r.Street__c}"
+                                                                    city="{!app.Practice__r.City__c}"
+                                                                    country="{!app.Practice__r.Country__c}"
+                                                                    province="{!app.Practice__r.State__c}"
+                                                                    postalCode="{!app.Practice__r.ZipCode__c}"/></li>
+                <li class="slds-list__item">Patient Name: {!app.Patient__r.Name}</li>
+                <li class="slds-list__item">Patient Phone: <lightning:formattedPhone value="{!app.Patient__r.Phone}"/></li>
+                <li class="slds-list__item">Patient Email: <lightning:formattedEmail value="{!app.Patient__r.Email}"/></li>
+                <li class="slds-list__item">Patient Address: <lightning:formattedAddress street="{!app.Patient__r.MailingStreet}"
+                                                                    city="{!app.Patient__r.MailingCity}"
+                                                                    country="{!app.Patient__r.MailingCountry}"
+                                                                    province="{!app.Patient__r.MailingState}"
+                                                                    postalCode="{!app.Patient__r.MailingPostalCode}"/></li>
+            </ul>
+        </span>
+        </div>
+        </div>
+        </div>
+    </aura:iteration>
+    
+
+   
+        
+    
+</aura:component>
+<!--
     <div class="slds-box">
         
         <ul>
@@ -52,8 +132,8 @@
                                                                  province="{!app.Patient__r.MailingState}"
                                                                  postalCode="{!app.Patient__r.MailingPostalCode}"/></li>
             </ul>
-            <br />
+            
         </aura:iteration>
     </div>
-    
-</aura:component>	
+-->    
+	
