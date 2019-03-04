@@ -1,7 +1,11 @@
 ({
     loadDoc : function(component) {
+        // Call getDoc() method from Controller: DocCtrl
+        // Assign the method to variable getDoc
         var getDoc =  component.get("c.getDoc");
 
+        // Pass docId attribute from view
+        //  to getDoc() method
         getDoc.setParams({
             docId : component.get("v.docId")
         })
