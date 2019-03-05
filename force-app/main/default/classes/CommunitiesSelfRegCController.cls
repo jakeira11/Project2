@@ -1,23 +1,17 @@
-//////////////////////////
-//
-// JessiCorp Project 2
-//
-// VisualForce Self-Registration
-//  Page Controller (Modified Default Page)
-//
-//////////////////////////
-
-public class CommunitiesSelfRegController {
+/**
+ * An apex page controller that supports self registration of users in communities that allow self registration
+ */
+public class CommunitiesSelfRegCController {
 
     public String firstName {get; set;}
     public String lastName {get; set;}
-    public String groupNo {get; set;}  //Added groupNumber for Account assignment
+    public Account acc {get; set;}
     public String email {get; set;}
     public String password {get; set {password = value == null ? value : value.trim(); } }
     public String confirmPassword {get; set { confirmPassword = value == null ? value : value.trim(); } }
     public String communityNickname {get; set { communityNickname = value == null ? value : value.trim(); } }
     
-    public CommunitiesSelfRegController() {
+    public CommunitiesSelfRegCController() {
         String expid = ApexPages.currentPage().getParameters().get('expid');            
         if (expId != null) {
             Site.setExperienceId(expId); 
@@ -39,10 +33,7 @@ public class CommunitiesSelfRegController {
 
         String profileId = null; // To be filled in by customer.
         String roleEnum = null; // To be filled in by customer.
-        
-        //ADDED CODE
-        //Get the account associated with the groupNo provided by customer
-        Account acc = [SELECT id, group_number__c FROM Account WHERE group_number__c = :groupNo LIMIT 1];
+        String accountId = acc.id; // To be filled in by customer.
         
         String userName = email;
 
@@ -57,7 +48,7 @@ public class CommunitiesSelfRegController {
         String userId;
 
         try {
-            userId = Site.createExternalUser(u, acc.id, password);
+            userId = Site.createExternalUser(u, accountId, password);
         } catch(Site.ExternalUserCreateException ex) {
             List<String> errors = ex.getDisplayMessages();
             for (String error : errors)  {
