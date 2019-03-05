@@ -7,17 +7,13 @@ trigger FamilyTrigger on Family__c (before insert,before update, before delete, 
         } else if (Trigger.isUpdate){
 
         } else if (Trigger.isDelete){
-            //DOES NOT WORK NEED FIX
-            /*List<Id> policyHolderIDs = new List<Id>();
-            for (Family__c f : Trigger.old){
-                policyHolderIDs.add(f.Policy_Holder__c);
-            }
+
+            //On delete of family record(s), update all contacts
             List<Contact> cons = new List<Contact>();
-            for(Contact c : [SELECT id FROM Contact WHERE id IN :policyHolderIDs]){
+            for(Contact c : [SELECT id FROM Contact]){
                 cons.add(c);
             }
-            NewPolicy.updatePrices(cons);*/
-
+            update cons;
         }
         
     } else if (Trigger.isAfter){

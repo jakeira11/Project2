@@ -54,8 +54,13 @@ public class NewPolicy {
                         //  the Opportunity's Account matches the Contact's Account, and
                         //  the OpportunityProduct Product Code is 1 (BRONZE),
                         //  THEN set the premium variable using that OpportunityProduct Unit Price
-                        if (oppLine.get(i).opportunityid == opps.get(j).id && opps.get(j).accountid == c.AccountId && oppLine.get(i).ProductCode == '1'){
-                            premium = oppLine.get(i).UnitPrice;
+                        if (oppLine.get(i).opportunityid == opps.get(j).id && 
+                            opps.get(j).accountid == c.AccountId && 
+                            oppLine.get(i).ProductCode == '1'){
+
+                                //Store the unit price to use for filling the customer's premium
+                                premium = oppLine.get(i).UnitPrice;
+                                
                         }
                     }
                 }
@@ -79,8 +84,13 @@ public class NewPolicy {
                         //  the Opportunity's Account matches the Contact's Account, and
                         //  the OpportunityProduct Product Code is 2 (SILVER),
                         //  THEN set the premium variable using that OpportunityProduct Unit Price
-                        if (oppLine.get(i).opportunityid == opps.get(j).id && opps.get(j).accountid == c.AccountId && oppLine.get(i).ProductCode == '2'){
-                            premium = oppLine.get(i).UnitPrice;
+                        if (oppLine.get(i).opportunityid == opps.get(j).id && 
+                            opps.get(j).accountid == c.AccountId && 
+                            oppLine.get(i).ProductCode == '2'){
+
+                                //Store the unit price to use for filling the customer's premium
+                                premium = oppLine.get(i).UnitPrice;
+                                
                         }
                     }
                 }
@@ -104,9 +114,13 @@ public class NewPolicy {
                         //  the Opportunity's Account matches the Contact's Account, and
                         //  the OpportunityProduct Product Code is 3 (GOLD),
                         //  THEN set the premium variable using that OpportunityProduct Unit Price
-                        if (oppLine.get(i).opportunityid == opps.get(j).id && opps.get(j).accountid == c.AccountId && oppLine.get(i).ProductCode == '3'){
-                            premium = oppLine.get(i).UnitPrice;
-                            System.debug(premium);
+                        if (oppLine.get(i).opportunityid == opps.get(j).id && 
+                            opps.get(j).accountid == c.AccountId && 
+                            oppLine.get(i).ProductCode == '3'){
+
+                                //Store the unit price to use for filling the customer's premium
+                                premium = oppLine.get(i).UnitPrice;
+                                
                         }
                     }
                 }
