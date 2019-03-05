@@ -1,19 +1,119 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//NewPolicy Class - Contact Trigger Helper
+//Provides functionality for the BeforeInsert and BeforeUpdate Contact Triggers
+//for updating prices for a new Policy on a Contact.
+//
+////////////////////////
+
+
+
 public class NewPolicy {
-    public static void updatePrices(Map<Id,Contact> cons,Map<Id,Contact> old){
-        for (Id i : Cons.keyset()){
-            Contact c = cons.get(i);
-            if (c.Customized__c == false && c.Tier__c == 'Bronze' && c.Tier__c != old.get(i).Tier__c){
-                c.Premium__c = 500 + (100 * c.Spouse__c) + (150 * c.Dependents__c);
+
+    //updatePrices Overload for BeforeUpdate
+    public static void updatePrices(List<Contact> cons){
+
+        //Create lists for Account IDs, Opportunities, and Opportunity Products(LineItems)
+        List<Id> accIDs = new List<Id>();
+        List<Opportunity> opps = new List<Opportunity>();
+        List<OpportunityLineItem> oppLine = new List<OpportunityLineItem>();
+
+        //Get a list of all accounts that the contacts are tied to
+        for (Contact c : cons){
+            accIds.add(c.accountid);
+        }
+
+        //Using the Account IDs, query for all the associated Opportunities
+        for (Opportunity o : [SELECT id,accountid FROM Opportunity WHERE accountid IN :accIds]){
+            opps.add(o);
+        }
+
+        //Using the Opportunities, query for all the Opportunity Products tied to them
+        for (OpportunityLineItem ol : [SELECT id,opportunityid,unitprice,productcode FROM OpportunityLineItem WHERE opportunityid IN :opps]){
+            oppLine.add(ol);
+        }
+
+        //Variable used in the below for loops
+        Decimal premium;
+
+        //Loop through the contacts that fired the trigger
+        for (Contact c : cons){
+
+            //If the customized flag has not been set, and the customer is Bronze tier
+            //Customized flag prevents trigger from affecting the record because the user's premium, etc have been set manually
+            //  because they wanted to customize their plan further.
+            if (c.Customized__c == false && c.Tier__c == 'Bronze'){
+
+                //nested for loops loop through both the opportunity and opportunity product lists to find the ones
+                //that match the current contact record
+                for (integer j = 0; j < opps.size(); j++){
+                    for (integer i = 0; i < oppLine.size(); i++){
+                        
+                        //if the OpportunityProduct matches the Opportunity, and
+                        //  the Opportunity's Account matches the Contact's Account, and
+                        //  the OpportunityProduct Product Code is 1 (BRONZE),
+                        //  THEN set the premium variable using that OpportunityProduct Unit Price
+                        if (oppLine.get(i).opportunityid == opps.get(j).id && opps.get(j).accountid == c.AccountId && oppLine.get(i).ProductCode == '1'){
+                            premium = oppLine.get(i).UnitPrice;
+                        }
+                    }
+                }
+                
+                //Set contact premium, coverage cap, and deductible based on the Opportunity Product
+                // UnitPrice and number of Spouses and Dependents
+                c.Premium__c = premium + (100 * c.Spouse__c) + (150 * c.Dependents__c);
                 c.Coverage_Cap__c = 1500;
                 c.Deductible__c = 1000;
             }
-            if (c.Customized__c == false && c.Tier__c == 'Silver' && c.Tier__c != old.get(i).Tier__c){
-                c.Premium__c = 1000 + (110 * c.Spouse__c) + (200 * c.Dependents__c);
+
+            //If the customized flag has not been set, and the customer is Silver tier
+            if (c.Customized__c == false && c.Tier__c == 'Silver'){
+
+                //nested for loops loop through both the opportunity and opportunity product lists to find the ones
+                //that match the current contact record
+                for (integer j = 0; j < opps.size(); j++){
+                    for (integer i = 0; i < oppLine.size(); i++){
+                        
+                        //if the OpportunityProduct matches the Opportunity, and
+                        //  the Opportunity's Account matches the Contact's Account, and
+                        //  the OpportunityProduct Product Code is 2 (SILVER),
+                        //  THEN set the premium variable using that OpportunityProduct Unit Price
+                        if (oppLine.get(i).opportunityid == opps.get(j).id && opps.get(j).accountid == c.AccountId && oppLine.get(i).ProductCode == '2'){
+                            premium = oppLine.get(i).UnitPrice;
+                        }
+                    }
+                }
+                
+                //Set contact premium, coverage cap, and deductible based on the Opportunity Product
+                // UnitPrice and number of Spouses and Dependents
+                c.Premium__c = premium + (110 * c.Spouse__c) + (200 * c.Dependents__c);
                 c.Coverage_Cap__c = 2000;
                 c.Deductible__c = 600;
             }
-            if (c.Customized__c == false && c.Tier__c == 'Gold' && c.Tier__c != old.get(i).Tier__c){
-                c.Premium__c = 1500 + (120 * c.Spouse__c) + (250 * c.Dependents__c);
+
+            //If the customized flag has not been set, and the customer is Gold tier
+            if (c.Customized__c == false && c.Tier__c == 'Gold'){
+
+                //nested for loops loop through both the opportunity and opportunity product lists to find the ones
+                //that match the current contact record
+                for (integer j = 0; j < opps.size(); j++){
+                    for (integer i = 0; i < oppLine.size(); i++){
+                        
+                        //if the OpportunityProduct matches the Opportunity, and
+                        //  the Opportunity's Account matches the Contact's Account, and
+                        //  the OpportunityProduct Product Code is 3 (GOLD),
+                        //  THEN set the premium variable using that OpportunityProduct Unit Price
+                        if (oppLine.get(i).opportunityid == opps.get(j).id && opps.get(j).accountid == c.AccountId && oppLine.get(i).ProductCode == '3'){
+                            premium = oppLine.get(i).UnitPrice;
+                            System.debug(premium);
+                        }
+                    }
+                }
+                
+                //Set contact premium, coverage cap, and deductible based on the Opportunity Product
+                // UnitPrice and number of Spouses and Dependents
+                c.Premium__c = premium + (120 * c.Spouse__c) + (250 * c.Dependents__c);
                 c.Coverage_Cap__c = 2250 + ((c.Spouse__c + c.Dependents__c) * 150);
                 c.Deductible__c = 300;
             }
