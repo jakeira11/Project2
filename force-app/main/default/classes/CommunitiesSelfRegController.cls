@@ -11,7 +11,10 @@ public class CommunitiesSelfRegController {
 
     public String firstName {get; set;}
     public String lastName {get; set;}
-    public String groupNo {get; set;}  //Added groupNumber for Account assignment
+
+    //Added groupNumber for Account assignment
+    public String groupNo {get; set;}  
+
     public String email {get; set;}
     public String password {get; set {password = value == null ? value : value.trim(); } }
     public String confirmPassword {get; set { confirmPassword = value == null ? value : value.trim(); } }
@@ -43,6 +46,7 @@ public class CommunitiesSelfRegController {
         //ADDED CODE
         //Get the account associated with the groupNo provided by customer
         Account acc = [SELECT id, group_number__c FROM Account WHERE group_number__c = :groupNo LIMIT 1];
+        //End modifications
         
         String userName = email;
 

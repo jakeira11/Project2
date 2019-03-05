@@ -1,6 +1,7 @@
 <!-- 
   JessiCorp Project 2
   VisualForce Page - Self-Registration
+  (Modified Default)
 -->
 
 <apex:page id="communitiesSelfRegPage" showHeader="true" controller="CommunitiesSelfRegController" title="{!$Label.site.user_registration}">
@@ -18,6 +19,7 @@
                       <!--self-registration page form               -->
                       <apex:outputLabel value="Group Number" for="groupNo"/>
                       <apex:inputText required="true" id="groupno" value="{!groupNo}" label="Group Number"/>
+                      <!-- End modifications -->
 
                       <apex:outputLabel value="{!$Label.site.community_nickname}" for="communityNickname"/>
                       <apex:inputText required="true" id="communityNickname" value="{!communityNickname}" label="{!$Label.site.community_nickname}"/>
