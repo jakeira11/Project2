@@ -1,6 +1,13 @@
-/**
- * An apex page controller that supports self registration of users in communities that allow self registration
- */
+//////////////////////////
+//
+// JessiCorp Project 2
+//
+// VisualForce Self-Registration
+//  Page Controller Test (Default Test)
+//
+//////////////////////////
+
+
 @IsTest public with sharing class CommunitiesSelfRegControllerTest {
     @IsTest(SeeAllData=true) 
     public static void testCommunitiesSelfRegController() {
@@ -15,6 +22,6 @@
         
         controller.password = 'abcd1234';
         controller.confirmPassword = 'abcd123';
-        System.assert(controller.registerUser() == null);  
+        System.assert(controller.registerUser() == null);
     }    
 }

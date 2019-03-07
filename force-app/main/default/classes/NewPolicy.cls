@@ -35,7 +35,7 @@ public class NewPolicy {
         }
 
         //Variable used in the below for loops
-        Decimal premium;
+        Decimal premium = 0;
 
         //Loop through the contacts that fired the trigger
         for (Contact c : cons){
