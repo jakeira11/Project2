@@ -13,7 +13,6 @@ public class AppointmentController {
     public User u {get; set;}
     public Boolean isRendered {get;set;}
     public integer rowNum{get;set;}
-    public List<DataTableWrapper> wrap{get;set;}
 
     //This constructor sets all values and queries the Appointment__c custom object;
     public AppointmentController() {
@@ -34,7 +33,7 @@ public class AppointmentController {
                            ORDER BY Appointment_Time__c
                            DESC
                            LIMIT 1];
-        wrapper();
+        //wrapper();
     }
 	
     //This method updates the Appointment List
@@ -105,16 +104,9 @@ public class AppointmentController {
     }
     
     //When called this method will change the isRendered value to true
-    public void renderList(){
+    public void renderList(integer index){
         isRendered = true;
+        apt = aptList[index];
     }
     
-    private void wrapper() {
-		Integer counter = 0;
-		for (Appointment__c item : [Select Name from Appointment__c]) {
-			counter = counter + 1;
-			// add the wrapper to the collection
-			wrap.add(new DataTableWrapper(item, counter));
-  }
-}
 }
