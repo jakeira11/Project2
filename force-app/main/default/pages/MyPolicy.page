@@ -1,0 +1,19 @@
+<apex:page controller="MyPolicyCtrl" sidebar="false">
+    <apex:slds />
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <h1 style="font-size:30px;text-align:center">My Policy</h1>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" collapsible="false">
+                <apex:outputField value="{!userContact.Tier__c}"/>
+                <apex:outputField value="{!userContact.Spouse__c}"/> 
+                <apex:outputText value="{!userContact.Premium_Total__c}"></apex:outputText>
+                <apex:outputField value="{!userContact.Dependents__c}"/>
+                <apex:outputField value="{!userContact.Coverage_Cap__c}"/>
+                <apex:outputField value="{!userContact.Deductible__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:relatedList subject="{!userContact}" list="Families__r"/>
+</apex:page>

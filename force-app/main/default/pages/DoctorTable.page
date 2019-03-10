@@ -1,0 +1,19 @@
+<apex:page standardController="Contact" recordSetVar="doctors">
+
+<h1>Browse Doctors</h1>
+
+<apex:pageBlock title="Doctor List">
+        
+        <!-- Contacts List -->
+        <apex:pageBlockTable value="{! doctors }" var="doc">
+            <apex:column value="{! doc.Name }"/>
+            <apex:column value="{! doc.Language__c }"/>
+            <apex:column value="{! doc.Specialization__c }"/>
+            <apex:column value="{! doc.Gender__c }"/>
+            <apex:column value="{! doc.Age__c }"/>
+        </apex:pageBlockTable>
+        
+    </apex:pageBlock>
+
+
+</apex:page>

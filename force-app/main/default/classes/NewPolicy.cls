@@ -16,12 +16,19 @@ public class NewPolicy {
 
         //Create lists for Account IDs, Opportunities, and Opportunity Products(LineItems)
         List<Id> accIDs = new List<Id>();
+        List<Account> accounts = new List<Account>();
         List<Opportunity> opps = new List<Opportunity>();
         List<OpportunityLineItem> oppLine = new List<OpportunityLineItem>();
 
         //Get a list of all accounts that the contacts are tied to
         for (Contact c : cons){
             accIds.add(c.accountid);
+        }
+
+        for (Account a : [SELECT id, Coverage_Cap__c, Deductible__c, Premium__c
+                          FROM Account
+                          WHERE id IN :accIds]){
+            accounts.add(a);
         }
 
         //Using the Account IDs, query for all the associated Opportunities
@@ -47,6 +54,7 @@ public class NewPolicy {
 
                 //nested for loops loop through both the opportunity and opportunity product lists to find the ones
                 //that match the current contact record
+                
                 for (integer j = 0; j < opps.size(); j++){
                     for (integer i = 0; i < oppLine.size(); i++){
                         
@@ -67,9 +75,17 @@ public class NewPolicy {
                 
                 //Set contact premium, coverage cap, and deductible based on the Opportunity Product
                 // UnitPrice and number of Spouses and Dependents
-                c.Premium__c = premium + (100 * c.Spouse__c) + (150 * c.Dependents__c);
+                c.Premium__c = premium;
                 c.Coverage_Cap__c = 1500;
                 c.Deductible__c = 1000;
+
+                for (integer i = 0; i < accounts.size(); i++){
+                    if (accounts.get(i).id == c.accountid){
+                        accounts.get(i).Bronze_Premium__c = premium;
+                        accounts.get(i).Bronze_Coverage_Cap__c = c.Coverage_Cap__c;
+                        accounts.get(i).Bronze_Deductible__c = c.Deductible__c;
+                    }
+                }
             }
 
             //If the customized flag has not been set, and the customer is Silver tier
@@ -97,9 +113,17 @@ public class NewPolicy {
                 
                 //Set contact premium, coverage cap, and deductible based on the Opportunity Product
                 // UnitPrice and number of Spouses and Dependents
-                c.Premium__c = premium + (110 * c.Spouse__c) + (200 * c.Dependents__c);
+                c.Premium__c = premium;
                 c.Coverage_Cap__c = 2000;
                 c.Deductible__c = 600;
+
+                for (integer i = 0; i < accounts.size(); i++){
+                    if (accounts.get(i).id == c.accountid){
+                        accounts.get(i).Silver_Premium__c = premium;
+                        accounts.get(i).Silver_Coverage_Cap__c = c.Coverage_Cap__c;
+                        accounts.get(i).Silver_Deductible__c = c.Deductible__c;
+                    }
+                }
             }
 
             //If the customized flag has not been set, and the customer is Gold tier
@@ -127,11 +151,20 @@ public class NewPolicy {
                 
                 //Set contact premium, coverage cap, and deductible based on the Opportunity Product
                 // UnitPrice and number of Spouses and Dependents
-                c.Premium__c = premium + (120 * c.Spouse__c) + (250 * c.Dependents__c);
-                c.Coverage_Cap__c = 2250 + ((c.Spouse__c + c.Dependents__c) * 150);
+                c.Premium__c = premium;
+                c.Coverage_Cap__c = 2250;
                 c.Deductible__c = 300;
+
+                for (integer i = 0; i < accounts.size(); i++){
+                    if (accounts.get(i).id == c.accountid){
+                        accounts.get(i).Gold_Premium__c = premium;
+                        accounts.get(i).Gold_Coverage_Cap__c = c.Coverage_Cap__c;
+                        accounts.get(i).Gold_Deductible__c = c.Deductible__c;
+                    }
+                }
             }
         }
         
+        update accounts;
     }
 }

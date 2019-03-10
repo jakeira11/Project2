@@ -1,0 +1,10 @@
+<apex:page standardcontroller="Appointment__c">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:inputField value="{!Appointment__c.Appointment_Time__c}"/>
+            <apex:inputField value="{!Appointment__c.Appointment_Reason__c}"/>
+            <apex:inputField value="{!Appointment__c.Practice__c}"/>
+            <apex:inputField value="{!Appointment__c.Doctor2__c}" />
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,118 @@
+<apex:page controller="DoctorLookupCtrl">
+<!-- Doctor lookup form -->
+<!-- 
+This page will allow a customer to search for a doctor
+based on several conditions, including:
+
+Language
+Gender
+Age
+Specialization
+Location (radius in miles)
+-->
+    <h1>Find a doctor</h1>
+    <apex:slds />
+    <apex:form id="docSearchForm">
+    <apex:pageBlock title="Your doctor preferences">
+
+
+
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <span>
+                   <apex:pageBlockSection >
+                        <apex:commandButton value="Search" action="{!search}">
+                                <apex:actionSupport event="onclick" 
+                                                    action="{!search}" 
+                                                    rerender="resultsColumn" />
+                        </apex:commandButton>
+                   </apex:pageBlockSection>
+                    
+                    
+                    <apex:pageMessages ></apex:pageMessages>
+
+
+                    <apex:pageBlockSection > 
+                        <apex:pageBlockSectionItem >
+                            Gender
+                            <apex:selectList size="1" value="{!genderSelection}">
+                                <apex:selectOptions value="{!genderItems}"/>  
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>     
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection > 
+                        <apex:pageBlockSectionItem >
+                            Age
+                            <apex:selectList size="1" value="{!ageSelection}">
+                                <apex:selectOptions value="{!ageItems}"/>  
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>     
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection >
+                        <apex:pageBlockSectionItem >
+                            Language
+                            <apex:selectList size="1" value="{!languageSelection}">
+                                <apex:selectOptions value="{!languageItems}"/>  
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection > 
+                        <apex:pageBlockSectionItem >
+                            Specialization
+                            <apex:selectList size="1" value="{!specialSelect}">
+                                <apex:selectOptions value="{!specializationItems}"/>  
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>     
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection > 
+                        <apex:pageBlockSectionItem >
+                            Traveling from
+                            <apex:outputText value="{!defaultaddr}" />
+                        </apex:pageBlockSectionItem>     
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection > 
+                        <apex:pageBlockSectionItem >
+                            In Network
+                            <apex:inputCheckbox value="{!inNetwork}" selected="true"/>
+                        </apex:pageBlockSectionItem>     
+                    </apex:pageBlockSection>
+                </span>
+            </div>
+
+            <div class="slds-col" >
+                    
+                <span>
+                    <apex:outputPanel id="resultsColumn">
+                        <apex:outputText value="{!results}"/>
+                    </apex:outputPanel>
+                    
+                    <!-- <apex:pageBlockSection>
+                        some thing 
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        some thing 
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        some thing 
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        some thing 
+                    </apex:pageBlockSection> -->
+                </span>
+            </div>
+        </div>
+
+
+
+
+      
+           
+    </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

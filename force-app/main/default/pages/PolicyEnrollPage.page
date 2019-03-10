@@ -1,0 +1,107 @@
+<apex:page controller="PolicyEnrollCtrl" sidebar="false">
+    <apex:slds />
+    <apex:form >
+        <div id="fulltable" align="center" class="slds-box">
+            <div class="slds-box slds-grid">
+                <div class="slds-col slds-size_1-of-6 slds-border_right">
+                    <!--Deliberately Empty-->
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                        <apex:image url="{!$Resource.Bronze}" />
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:image url="{!$Resource.Silver}" />
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:image url="{!$Resource.Gold}" />
+                </div>
+            </div>
+            <div class="slds-box slds-grid">
+                <div class="slds-col slds-size_1-of-6">
+                    <apex:pageBlock >
+                        Premium:
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        Employee: ${!acc.Bronze_Premium__c}
+                        <br />Add Spouse: $100.00
+                        <br />Per Child: $150.00
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        Employee: ${!acc.Silver_Premium__c}
+                        <br />Add Spouse: $120.00
+                        <br />Per Child: $200.00
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        Employee: ${!acc.Gold_Premium__c}
+                        <br />Add Spouse: $150.00
+                        <br />Per Child: $250.00
+                    </apex:pageBlock>
+                </div>
+            </div>
+            <div class="slds-box slds-grid">
+                <div class="slds-col slds-size_1-of-6">
+                    <apex:pageBlock >
+                        Coverage Cap:
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Bronze_Coverage_Cap__c}
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Silver_Coverage_Cap__c}
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Gold_Coverage_Cap__c}
+                    </apex:pageBlock>
+                </div>
+            </div>
+            <div class="slds-box slds-grid">
+                <div class="slds-col slds-size_1-of-6">
+                    <apex:pageBlock >
+                        Deductible:
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Bronze_Deductible__c}
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Silver_Deductible__c}
+                    </apex:pageBlock>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Gold_Deductible__c}
+                    </apex:pageBlock>
+                </div>
+            </div>
+            <div class="slds-box slds-grid">
+                <div class="slds-col slds-size_1-of-6 slds-border_right">
+                        <!--Deliberately Empty-->
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:commandButton action="{!pickBronze}" value="Select Bronze" />
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:commandButton action="{!pickSilver}" value="Select Silver" />
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:commandButton action="{!pickGold}" value="Select Gold" />
+                </div>
+            </div>
+        </div>
+    </apex:form>>
+</apex:page>
