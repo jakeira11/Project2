@@ -1,10 +1,69 @@
 <apex:page standardcontroller="Appointment__c">
     <apex:form >
         <apex:pageBlock >
-            <apex:inputField value="{!Appointment__c.Appointment_Time__c}"/>
-            <apex:inputField value="{!Appointment__c.Appointment_Reason__c}"/>
-            <apex:inputField value="{!Appointment__c.Practice__c}"/>
-            <apex:inputField value="{!Appointment__c.Doctor2__c}" />
+
+            <div style="overflow: auto;">
+
+                <div style="float: left; width: 50%;">
+                    <div>
+                        <div>
+                            <span style="color:red">*</span>
+                            Appointment Name
+                        </div>
+                        <apex:inputField value="{!Appointment__c.Name}"/>
+                        <br/><br/>
+                    </div>
+                    <div>
+                        <div>
+                            <span style="color:red">*</span>
+                            Appointment Date and Time
+                        </div>
+                        <apex:inputField value="{!Appointment__c.Appointment_Time__c}"/>
+                        <br/>
+                    </div>
+                    <div>
+                        <div>
+                            <span style="color:red">*</span>
+                            Appointment Reason
+                        </div>
+                        <apex:inputField style="width: 90%;" value="{!Appointment__c.Appointment_Reason__c}"/>
+                    </div>
+                </div>
+                <div style="float: right; width: 50%;">
+                    <div>
+                        <div>
+                            <span style="color:red">*</span>
+                            Patient
+                        </div>
+                        <apex:inputField value="{!Appointment__c.Patient__c}"/>
+                        <br/><br/>
+                    </div>
+                    <div>
+                        <div>
+                            <span style="color:red">*</span>
+                            Doctor
+                        </div>
+                        <apex:inputField value="{!Appointment__c.Doctor2__c}" />
+                        <br/>
+                    </div>
+                    <div>
+                        <div>
+                            Practice
+                        </div>
+                        <apex:inputField value="{!Appointment__c.Practice__c}" />
+                        <br/>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div style="float:right;">
+                <apex:pageBlockButtons style="float:right;" location="bottom">
+                    <apex:commandButton action="{!cancel}" value="Cancel" id="cancel"/>
+                    <apex:commandButton action="{!save}" value="Save" id="save"/>
+                </apex:pageBlockButtons>
+            </div>
+
         </apex:pageBlock>
     </apex:form>
 </apex:page>

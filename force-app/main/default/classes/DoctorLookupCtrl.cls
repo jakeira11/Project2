@@ -12,10 +12,15 @@ global with sharing class DoctorLookupCtrl {
     global String ageSelection {get;set;}
     global Boolean inNetwork {get;set;}
     global String defaultaddr{get;set;}
+    global Boolean isRendered {get;set;}
+    global Boolean docRendered {get;set;}
 
-    global String results {get;set;}
+    List<Contact> foundDocs = new List<Contact>();
+    Contact selectedDoc = new Contact();
 
-    Integer count = 0;
+    //global String results {get;set;}
+
+   
                         
     
 
@@ -30,20 +35,20 @@ global with sharing class DoctorLookupCtrl {
                     FROM User WHERE ID = :userID];
                
         defaultaddr = u.Street + ' ' + u.City + ' ' + u.PostalCode;
+
+        isRendered = false;
         
     }
 
-    public PageReference incrementCounter() {
-            count++;
-            return null;
-    }
-                    
-    public Integer getCount() {
-        return count;
+
+
+    public List<Contact> getFoundDocs(){
+        return foundDocs;
     }
 
     // Query doctors that match the search criteria  
     public PageReference search() {
+        
         
         List<Integer> ageRange = new List<Integer>();
 
@@ -83,8 +88,9 @@ global with sharing class DoctorLookupCtrl {
             }
         }
 
-        List<Contact> foundDocs = [
-            SELECT ID, FirstName, LastName, Gender__c, In_Network__c, LanguageVF__c
+        foundDocs = [
+            SELECT ID, AccountID, FirstName, LastName, Gender__c, In_Network__c, LanguageVF__c,
+            Account.Name, Account.BillingStreet, Account.BillingCity, Account.BillingState
             FROM Contact
             WHERE Gender__c = :genderSelection
             AND Specialization__c INCLUDES (:specialSelect)
@@ -93,68 +99,21 @@ global with sharing class DoctorLookupCtrl {
             
         ];
 
-        if(foundDocs.size() > 0)
-        {
-            results = foundDocs[0].FirstName + ' ' + foundDocs[0].LastName;
-            apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-                                     foundDocs[0].FirstName + ' ' + foundDocs[0].LastName));
-            return null;
-        }
-        else
-        {
-            results = 'No doctors found';
-            apexPages.addmessage(new apexpages.message(apexpages.severity.ERROR,
-                                        'No doctors found')); 
-            return null;
-        }
-        
-        
-        
+        if (foundDocs.size() > 0){ isRendered = true; }
 
-        // Age__c, LanguageVF__c, Specialization__c
-        // inNetwork 
-        // AND Language__c = :languageSelection
-        // AND Specialization__c = :specialSelect
-        // AND In_Network__c = :inNetwork
-
-        // if(foundDocs != null){
-        //     for(Contact doctor: foundDocs){
-        //         apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-        //                             doctor.FirstName + ' ' + doctor.LastName));
-        //     }
-        //     return null;
-        // }
-        // else{
-        //     // Redict to home page
-        //     return new PageReference('/home/home.jsp');
-        //     // apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-        //     //                         'Did not find any doctors'));
-        //     // return null;
-        // }
-
-        
-        
-        // apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-        //                         foundDocs[0].FirstName + ' ' + foundDocs[0].LastName));
-             
-        // apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-        //                         foundDocs[0].Gender__c));
-
-        // apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-        //                         foundDocs[0].Age__c.toString()));
-
-        // apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-        //                         foundDocs[0].Language__c));  
-
-        // apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-        //                         foundDocs[0].In_Network__c.toString()));     
-
-        // apexPages.addmessage(new apexpages.message(apexpages.severity.CONFIRM,
-        //                         'In Network: '  + inNetwork));                                                     
-        
-        
+        return null;
+                                                          
     }
 
+    public PageReference getDocInfo(){
+        docRendered = true;
+        selectedDoc = new Contact(LastName='TestDoctor');
+        // selectedDoc = [
+
+        // ];
+
+        return null;
+    }
 
     public List<SelectOption> getRadiusItems(){
         //Schema.DescribeFieldResult fieldResult = Contact.Country__c.getDescribe();

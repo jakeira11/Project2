@@ -1,3 +1,7 @@
+///////////////////////////////////////////////////////////////////
+//This class is a custom controller for the appointment object
+//that allows the user to perform pagenation and 
+///////////////////////////////////////////////////////////////////
 public class AppointmentController {
     public List<Appointment__c> aptList{get;set;}
     public Appointment__c apt{get;set;}
@@ -7,11 +11,15 @@ public class AppointmentController {
     public id patientID {get;set;}
     public Contact userContact;
     public User u {get; set;}
-    public Boolean isRendered {get;set;}  
+    public Boolean isRendered {get;set;}
+    public integer rowNum{get;set;}
+    public List<DataTableWrapper> wrap{get;set;}
 
+    //This constructor sets all values and queries the Appointment__c custom object;
     public AppointmentController() {
         oset = 0;
         perpage = 2;
+        rowNum = 1;
         size = [SELECT count() FROM Appointment__c];
         patientId = userinfo.getUserId();
   	    isRendered = false;
@@ -26,21 +34,35 @@ public class AppointmentController {
                            ORDER BY Appointment_Time__c
                            DESC
                            LIMIT 1];
+        wrapper();
     }
-
+	
+    //This method updates the Appointment List
     public void save(){
         update aptList;
     }
 
-    public void next(){
-        if (oset >= size - perpage)
+    //This method checks the current offset and updates the page accordingly.
+    //If the user is on the last page and selects next it brings them back to the beginning
+    public void previous(){
+        if (oset >= size - perpage){
             oset = 0;
-        else
-            oset += perpage;
+            
+        }
+            
+        else{
+            integer i=0;
+            while (i < size){
+                i += perpage;
+            }
+            rowNum += perpage;
+        }
         queryDisplay();
     }
 
-    public void previous(){
+    //This method checks the current offset and updates the page accordingly.
+    //If the user is on the first page and selects next it brings them back to the end
+    public void next(){
         if (oset <= perpage){
             integer i = 0;
             while (i < size){
@@ -53,10 +75,15 @@ public class AppointmentController {
         queryDisplay();
     }
 
+    //This method is currently not in use but when called will set the
+    //number of appointments that are displayed per page
     public void setPageSize(String s){
         perpage = integer.valueof(s);
     }
 
+    //This method checks to see if the user is a doctor or not and 
+    //queries the database accordingly to get the necessary information
+    //to display in the list
     public void queryDisplay(){
         if (UserInfo.getUserType() == 'powerpartner'){
        			aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c
@@ -77,7 +104,17 @@ public class AppointmentController {
         }
     }
     
+    //When called this method will change the isRendered value to true
     public void renderList(){
         isRendered = true;
     }
+    
+    private void wrapper() {
+		Integer counter = 0;
+		for (Appointment__c item : [Select Name from Appointment__c]) {
+			counter = counter + 1;
+			// add the wrapper to the collection
+			wrap.add(new DataTableWrapper(item, counter));
+  }
+}
 }
