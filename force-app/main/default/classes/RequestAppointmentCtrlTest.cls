@@ -1,9 +1,8 @@
 @isTest
-public class MyPolicyCtrlTest {
+public with sharing class RequestAppointmentCtrlTest {
     @isTest
-    public static void doTest(){
-        //Get the page reference and set current page for test
-        PageReference pageRef = Page.MyPolicy;
+    public static void doTest() {
+        PageReference pageRef = Page.RequestAppointment;
         Test.setCurrentPage(pageRef);
         Test.setCurrentPageReference(pageRef);
 
@@ -24,14 +23,26 @@ public class MyPolicyCtrlTest {
                           LocaleSidKey='en_US', ProfileId = p.Id, TimeZoneSidKey='America/Los_Angeles',
                           UserName=uniqueUserName);
 
-        //Run as the created user
         System.runAs(u){
             //Initiate the controller
-            MyPolicyCtrl controller = new MyPolicyCtrl();
+            RequestAppointmentCtrl controller = new RequestAppointmentCtrl();
 
-            //Check that the controller was successfully created
+            //Check that controller was successfully initiated
             System.assertNotEquals(controller,null);
-        }
 
+            controller.apt.Appointment_Time__c = Datetime.now();
+            
+            //Run the save method and check the return value
+            //Should return user to the landing page
+            System.assertEquals(controller.save(),Page.MyAppointment);
+
+            //Query for the appointment we just saved
+            Appointment__c result = [SELECT id,patient__c FROM Appointment__c LIMIT 1];
+
+            //Ensure the resulting appointment is not null and has the correct information
+            System.assertNotEquals(result,null);
+            System.assertEquals(result.patient__c,c.id);
+            
+        }
     }
 }

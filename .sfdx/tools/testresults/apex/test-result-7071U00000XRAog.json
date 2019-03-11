@@ -1,0 +1,46 @@
+{
+    "summary": {
+        "outcome": "Passed",
+        "testsRan": 1,
+        "passing": 1,
+        "failing": 0,
+        "skipped": 0,
+        "passRate": "100%",
+        "failRate": "0%",
+        "testStartTime": "Mar 10, 2019 9:24 PM",
+        "testExecutionTime": "770 ms",
+        "testTotalTime": "770 ms",
+        "commandTime": "4536 ms",
+        "hostname": "https://jessicorp-project2-dev-ed.my.salesforce.com",
+        "orgId": "00D1U0000012YDcUAM",
+        "username": "jakeira11@jessicorp.com",
+        "testRunId": "7071U00000XRAog",
+        "userId": "0051U000003emEkQAI"
+    },
+    "tests": [
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v45.0/tooling/sobjects/ApexTestResult/07M1U000006t8bJUAQ"
+            },
+            "Id": "07M1U000006t8bJUAQ",
+            "QueueItemId": "7091U000000cuZ4QAI",
+            "StackTrace": null,
+            "Message": null,
+            "AsyncApexJobId": "7071U00000XRAogQAH",
+            "MethodName": "doTest",
+            "Outcome": "Pass",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v45.0/tooling/sobjects/ApexClass/01p1U00000LaI2XQAV"
+                },
+                "Id": "01p1U00000LaI2XQAV",
+                "Name": "MyPolicyCtrlTest",
+                "NamespacePrefix": null
+            },
+            "RunTime": 770,
+            "FullName": "MyPolicyCtrlTest.doTest"
+        }
+    ]
+}

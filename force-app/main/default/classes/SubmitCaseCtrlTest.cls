@@ -1,9 +1,8 @@
 @isTest
-public class MyPolicyCtrlTest {
+public with sharing class SubmitCaseCtrlTest {
     @isTest
-    public static void doTest(){
-        //Get the page reference and set current page for test
-        PageReference pageRef = Page.MyPolicy;
+    public static void doTest() {
+        PageReference pageRef = Page.SubmitCase;
         Test.setCurrentPage(pageRef);
         Test.setCurrentPageReference(pageRef);
 
@@ -24,14 +23,27 @@ public class MyPolicyCtrlTest {
                           LocaleSidKey='en_US', ProfileId = p.Id, TimeZoneSidKey='America/Los_Angeles',
                           UserName=uniqueUserName);
 
-        //Run as the created user
         System.runAs(u){
-            //Initiate the controller
-            MyPolicyCtrl controller = new MyPolicyCtrl();
 
-            //Check that the controller was successfully created
+            //initiate controller
+            SubmitCaseCtrl controller = new SubmitCaseCtrl();
+
+            //Check that controller was successfully initiated
             System.assertNotEquals(controller,null);
-        }
 
+            //create the case in the controller
+            controller.newCase = new Case(contactid = c.id,subject = 'test');
+            
+            //Run the save method and check the return value
+            //Should return user to the landing page
+            System.assertEquals(controller.save(),Page.CommunitiesLanding);
+
+            //get the case that was saved
+            Case result = [SELECT id,contactid FROM Case LIMIT 1];
+
+            //Check that the case is not null and the contact id is correct
+            System.assertNotEquals(result,null);
+            System.assertEquals(result.contactid,c.id);
+        }
     }
 }

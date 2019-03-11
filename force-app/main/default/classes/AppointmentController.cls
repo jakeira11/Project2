@@ -27,7 +27,7 @@ public class AppointmentController {
                   Where id=:patientId];
         queryDisplay();
         
-        apt = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c
+        apt = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c, Appointment_Reason__c, Practice__c
                 		   FROM Appointment__c
                  		   WHERE patient__r.name like 'mart%'
                            ORDER BY Appointment_Time__c
@@ -85,7 +85,7 @@ public class AppointmentController {
     //to display in the list
     public void queryDisplay(){
         if (UserInfo.getUserType() == 'powerpartner'){
-       			aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c
+       			aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c, Appointment_Reason__c
                 		   FROM Appointment__c
                  		   WHERE doctor2__c = :u.id
                            ORDER BY Appointment_Time__c
@@ -93,7 +93,7 @@ public class AppointmentController {
                            LIMIT :perpage
                            OFFSET :oset];
         } else {
-        		aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c
+        		aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c, Appointment_Reason__c
                    		   FROM Appointment__c
                    		   WHERE patient__c = :u.ContactId
                            ORDER BY Appointment_Time__c
@@ -104,9 +104,12 @@ public class AppointmentController {
     }
     
     //When called this method will change the isRendered value to true
-    public void renderList(integer index){
+    public void renderList(){
         isRendered = true;
-        apt = aptList[index];
+        id inID = System.currentPageReference().getParameters().get('ApptID');
+        for(Appointment__c appointment: aptList)
+            if(appointment.id == inID)
+            	apt = appointment;
     }
     
 }

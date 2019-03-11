@@ -16,7 +16,7 @@ global with sharing class DoctorLookupCtrl {
     global Boolean docRendered {get;set;}
 
     List<Contact> foundDocs = new List<Contact>();
-    Contact selectedDoc = new Contact();
+    Contact selectedDoc {get;set;}
 
     //global String results {get;set;}
 
@@ -33,16 +33,15 @@ global with sharing class DoctorLookupCtrl {
         User u = [SELECT ContactId, Contact.Name, Contact.AccountId, Contact.Account.Name,
                             Street, City, PostalCode
                     FROM User WHERE ID = :userID];
-               
+
+
         defaultaddr = u.Street + ' ' + u.City + ' ' + u.PostalCode;
 
         isRendered = false;
+        docRendered = false;
         
     }
-
-
-
-    public List<Contact> getFoundDocs(){
+public List<Contact> getFoundDocs(){
         return foundDocs;
     }
 
@@ -87,8 +86,7 @@ global with sharing class DoctorLookupCtrl {
                 ageRange.add(i);
             }
         }
-
-        foundDocs = [
+foundDocs = [
             SELECT ID, AccountID, FirstName, LastName, Gender__c, In_Network__c, LanguageVF__c,
             Account.Name, Account.BillingStreet, Account.BillingCity, Account.BillingState
             FROM Contact
@@ -99,18 +97,32 @@ global with sharing class DoctorLookupCtrl {
             
         ];
 
-        if (foundDocs.size() > 0){ isRendered = true; }
+        if (foundDocs.size() > 0){ 
+            isRendered = true; 
+        }
+        else { 
+            isRendered = false; 
+            docRendered = false;
+        }
 
         return null;
                                                           
     }
 
+    public Contact getSelectedDoc(){
+
+        return selectedDoc;
+
+    }
+
     public PageReference getDocInfo(){
         docRendered = true;
-        selectedDoc = new Contact(LastName='TestDoctor');
-        // selectedDoc = [
-
-        // ];
+/*
+        selectedDoc = [
+            SELECT ID, FirstName, LastName
+            FROM Contact
+            WHERE FirstName = :docFirstName
+        ];*/
 
         return null;
     }
@@ -154,7 +166,6 @@ global with sharing class DoctorLookupCtrl {
         return options;
 
     }
-
     public List<SelectOption> getAgeItems(){
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption ('Any', 'Any'));
