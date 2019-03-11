@@ -28,10 +28,10 @@
             </apex:pageBlockSection>
             <apex:pageBlockSection columns="2" rendered="{!isRendered}">
                 <apex:outputField value="{!apt.Name}"/>
-            <!--    <apex:outputField value="{!apt.Appointment_Reason__c}"/>
-                <apex:outputField value="{!apt.Patient__c}"/>
-                <apex:outputField value="{!apt.Doctor2__c}"/>
-                <apex:outputField value="{!apt.Practice__c}"/>-->
+               <apex:outputField value="{!apt.Appointment_Reason__c}"/>
+                <apex:outputField value="{!apt.Patient__r.Name}"/>
+                <apex:outputField value="{!apt.Doctor2__r.Name}"/>
+                <apex:outputField value="{!apt.Practice__r.Name}"/>
             </apex:pageBlockSection>
        </apex:pageBlock>
         

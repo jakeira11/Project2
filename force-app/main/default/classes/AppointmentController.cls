@@ -33,7 +33,6 @@ public class AppointmentController {
                            ORDER BY Appointment_Time__c
                            DESC
                            LIMIT 1];
-        //wrapper();
     }
 	
     //This method updates the Appointment List
@@ -85,7 +84,8 @@ public class AppointmentController {
     //to display in the list
     public void queryDisplay(){
         if (UserInfo.getUserType() == 'powerpartner'){
-       			aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c, Appointment_Reason__c
+       			aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c, 
+                                  Appointment_Reason__c, practice__r.name
                 		   FROM Appointment__c
                  		   WHERE doctor2__c = :u.id
                            ORDER BY Appointment_Time__c
@@ -93,7 +93,8 @@ public class AppointmentController {
                            LIMIT :perpage
                            OFFSET :oset];
         } else {
-        		aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c, Appointment_Reason__c
+        		aptList = [SELECT id,name, patient__c, patient__r.Name, doctor2__r.Name, Appointment_Time__c, 
+                                  Appointment_Reason__c, practice__r.name
                    		   FROM Appointment__c
                    		   WHERE patient__c = :u.ContactId
                            ORDER BY Appointment_Time__c
