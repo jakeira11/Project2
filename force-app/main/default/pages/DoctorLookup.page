@@ -1,0 +1,226 @@
+<!-- Doctor lookup form -->
+<!-- 
+This page will allow a customer to search for a doctor
+based on several conditions, including:
+
+Language
+Gender
+Age
+Specialization
+-->
+
+<apex:page controller="DoctorLookupCtrl" sidebar="false">
+    <!-- styling for map -->
+    <head>
+        <style>
+            #map {
+            height: 400px;
+            width: 100%;
+            }
+        </style>
+    </head>
+
+    <apex:slds />
+    <apex:form id="docSearchForm">
+        <!-- begin block for user search criteria -->
+        <apex:pageBlock >
+
+            <apex:pageBlockSection >
+                <h1 style="font-size:30px;text-align:center">Find a Doctor</h1>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" collapsible="false">
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Gender" />
+                    <apex:selectList size="1" value="{!genderSelection}">
+                        <apex:selectOptions value="{!genderItems}"/>  
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Age" />
+                    <apex:selectList size="1" value="{!ageSelection}">
+                        <apex:selectOptions value="{!ageItems}"/>  
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Language" />
+                    <apex:selectList size="1" value="{!languageSelection}">
+                        <apex:selectOptions value="{!languageItems}"/>  
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Specialization" />
+                    <apex:selectList size="1" value="{!specialSelect}">
+                        <apex:selectOptions value="{!specializationItems}"/>  
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Traveling from" />
+                    <apex:outputText value="{!defaultaddr}" />
+                </apex:pageBlockSectionItem>    
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="In Network" />
+                    <apex:inputCheckbox value="{!inNetwork}" selected="true"/>
+                </apex:pageBlockSectionItem> 
+
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection >
+                <div align="center">
+                    <apex:commandButton value="Search" action="{!search}">
+                            <apex:actionSupport event="onclick" 
+                                                action="{!search}" 
+                                                rerender="resultsBlock"
+                            />
+                    </apex:commandButton>
+                </div> 
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+    </apex:form>
+    <!-- begin block for doctor results returned from the search -->
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1">
+            <apex:outputPanel rendered="{!isRendered}">
+                <apex:pageBlockTable value="{!foundDocs}" var="doctor" id="resultsBlock">
+
+                    <apex:column >
+                        <apex:form >
+                            <apex:facet name="header">Doctor Name</apex:facet>
+                            <apex:commandLink value="{!doctor.firstName} {!doctor.lastName}"
+                                                action="{!getDocInfo}"
+                            >
+
+
+                                <apex:param name="docFirstName"
+                                            value="{!doctor.firstname}"
+                                            assignTo="{!docFirstName}"
+                                />
+
+                            
+                                <apex:param name="docLastName"
+                                            value="{!doctor.lastname}"
+                                            assignTo="{!docLastName}"
+                                />
+
+                                <apex:param name="practiceName"
+                                            value="{!doctor.Account.Name}"
+                                            assignTo="{!practiceName}"
+                                />
+                            </apex:commandLink>
+                        </apex:form>
+                    </apex:column>
+
+                    <apex:column value="{!doctor.Account.Name}" >
+                        <apex:facet name="header">Practice Name</apex:facet>
+                    </apex:column>
+
+                    <apex:column value="{!doctor.Account.BillingStreet}" >
+                        <apex:facet name="header">Street</apex:facet>
+                    </apex:column>
+
+                    <apex:column value="{!doctor.Account.BillingCity}" >
+                        <apex:facet name="header">City</apex:facet>
+                    </apex:column>
+
+                    <apex:column value="{!doctor.Account.BillingState}" >
+                        <apex:facet name="header">State</apex:facet>
+                    </apex:column>
+    
+                </apex:pageBlockTable>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+    <apex:pageBlock id="docBlock" >
+        <apex:outputPanel rendered="{!docRendered}">
+                <apex:pageBlockSection >
+                    <h1 style="font-size:30px;text-align:center">Doctor Info</h1>
+                    </apex:pageBlockSection>
+            
+                    <apex:pageBlockSection columns="1" collapsible="false" >
+                        
+                        <apex:pageBlockSectionItem >
+                            <h6 style="text-align:center">Name</h6>
+                            <apex:outputText style="font-style:italic" value="{0} {1}"> 
+                                <apex:param value="{!selectedDoc.FirstName}"/> 
+                                <apex:param value="{!selectedDoc.LastName}"/>
+                            </apex:outputText>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <h6 style="text-align:center">Languages</h6>
+                            <apex:outputText style="font-style:italic" value="{!selectedDoc.LanguageVF__c}" /> 
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <h6 style="text-align:center">Specializations</h6>
+                            <apex:outputText style="font-style:italic" value="{!selectedDoc.Specialization__c}" /> 
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <h6 style="text-align:center">Office Info</h6>
+                            <apex:outputText style="font-style:italic" value="{0} {1} {2} {3}"> 
+                                <!-- <apex:param value="{!selectedDoc.Account.Name}"/>  -->
+                                <apex:param value="{!selectedDoc.Account.BillingStreet}"/>
+                                <apex:param value="{!selectedDoc.Account.BillingCity}"/>
+                                <apex:param value="{!selectedDoc.Account.BillingState}"/>
+                                <apex:param value="{!selectedDoc.Account.BillingPostalCode}"/>
+                            </apex:outputText>
+                        </apex:pageBlockSectionItem>
+            
+                </apex:pageBlockSection>
+            
+        </apex:outputPanel>
+
+
+    </apex:pageBlock>
+
+    <apex:pageBlock rendered="{!docRendered}">
+        <div id="map"></div>
+        <script>
+            function initMap() {
+            var address = "{!selectedDoc.Account.BillingStreet}, {!selectedDoc.Account.BillingCity}, {!selectedDoc.Account.BillingPostalCode}";
+            
+            //var uluru = {lat: 38.953690, lng: -77.350533};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: address
+            });
+            
+            var geocoder = new google.maps.Geocoder(); 
+                
+            geocoder.geocode({
+                    'address': address
+                }, 
+                function(results, status) {
+                    if(status == google.maps.GeocoderStatus.OK) {
+                        new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map
+                        });
+                        map.setCenter(results[0].geometry.location);
+                    }
+                });
+                
+                /*   
+            var marker = new google.maps.Marker({
+                position: address,
+                map: map
+            });
+                */ 
+            }
+        </script>
+        <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOLBmodSIsdbhwb3BWgFcaIle53xZbIyU&callback=initMap">
+        </script>
+    </apex:pageBlock>
+    
+</apex:page>

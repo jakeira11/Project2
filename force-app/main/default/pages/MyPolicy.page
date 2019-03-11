@@ -1,0 +1,28 @@
+<apex:page controller="MyPolicyCtrl" sidebar="false">
+    <apex:slds />
+    <apex:form >
+        <apex:pageBlock >
+            <!--Header Section-->
+            <apex:pageBlockSection >
+                <h1 style="font-size:30px;text-align:center">My Policy</h1>
+            </apex:pageBlockSection>
+            <!-- Display all Personal Information for current User -->
+            <apex:pageBlockSection columns="2" collapsible="false">
+                <apex:outputField value="{!userContact.Name}"/>
+                <apex:outputField value="{!userContact.Birthdate}"/>
+                <apex:outputField value="{!userContact.Phone}"/>
+                <apex:outputField value="{!userContact.Email}"/>
+                <apex:outputField value="{!userContact.LanguageVF__c}"/>
+                <apex:outputField value="{!userContact.Account.Name}"/>
+                <apex:outputField value="{!userContact.Tier__c}"/>
+                <apex:outputText value="{!userContact.Premium_Total__c}"></apex:outputText>
+                <apex:outputField value="{!userContact.Spouse__c}"/> 
+                <apex:outputField value="{!userContact.Coverage_Cap__c}"/>
+                <apex:outputField value="{!userContact.Dependents__c}"/>
+                <apex:outputField value="{!userContact.Deductible__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <!--Display the Families related list for the Customer-->
+    <apex:relatedList subject="{!userContact}" list="Families__r"/>
+</apex:page>

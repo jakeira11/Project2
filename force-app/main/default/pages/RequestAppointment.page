@@ -1,0 +1,22 @@
+<apex:page controller="RequestAppointmentCtrl" sidebar="false">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <!-- Page Header -->
+                <h1 style="font-size:30px">Request Appointment</h1>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2">
+                <!-- Appointment Input Fields -->
+                <apex:inputField value="{!apt.Name}"/>
+                <apex:inputField value="{!apt.Appointment_Time__c}"/>
+                <apex:inputField value="{!apt.Appointment_Reason__c}"/>
+                <apex:inputField value="{!apt.Doctor2__c}" />
+                <apex:inputField value="{!apt.Practice__c}" />
+            </apex:pageBlockSection>
+                <apex:pageBlockButtons style="float:right;" location="bottom">
+                    <!-- Create/Save Button -->
+                    <apex:commandButton action="{!save}" value="Save" id="save"/>
+                </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

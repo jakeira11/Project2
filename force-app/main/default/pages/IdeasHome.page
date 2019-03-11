@@ -1,0 +1,2 @@
+<apex:page sidebar="false" action="{!URLFOR('/ideas/ideaList.apexp')}" >
+</apex:page>

@@ -1,0 +1,136 @@
+<apex:page controller="PolicyEnrollCtrl" sidebar="false">
+    <apex:slds />
+    <apex:form >
+        <!--DIV for the Full Table-->
+        <div id="fulltable" align="center" class="slds-box">
+            <!-- First Row -->
+            <!-- First cell is empty, the rest are pictures representing the tiers -->
+            <div class="slds-box slds-grid">
+                <div class="slds-col slds-size_1-of-6 slds-border_right">
+                    <!--Deliberately Empty-->
+                </div>
+                <!-- Second Cell - Bronze Image -->
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                        <apex:image url="{!$Resource.Bronze}" />
+                </div>
+                <!-- Third Cell - Silver Image -->
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:image url="{!$Resource.Silver}" />
+                </div>
+                <!-- Final Cell - Gold Image -->
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:image url="{!$Resource.Gold}" />
+                </div>
+            </div>
+            <!-- Second Row - Premiums -->
+            <div class="slds-box slds-grid">
+                <!-- First Cell - What is to be displayed in this row -->
+                <div class="slds-col slds-size_1-of-6">
+                    <apex:pageBlock >
+                        Premium:
+                    </apex:pageBlock>
+                </div>
+                <!-- Second Cell - Bronze Premium Price, plus additional costs for 
+                        Each Child/Spouse -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        Employee: ${!acc.Bronze_Premium__c}
+                        <br />Add Spouse: $100.00
+                        <br />Per Child: $150.00
+                    </apex:pageBlock>
+                </div>
+                <!-- Third Cell - Silver Premium Price, plus additional costs for 
+                        Each Child/Spouse -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        Employee: ${!acc.Silver_Premium__c}
+                        <br />Add Spouse: $120.00
+                        <br />Per Child: $200.00
+                    </apex:pageBlock>
+                </div>
+                <!-- Final Cell - Gold Premium Price, plus additional costs for 
+                        Each Child/Spouse -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        Employee: ${!acc.Gold_Premium__c}
+                        <br />Add Spouse: $150.00
+                        <br />Per Child: $250.00
+                    </apex:pageBlock>
+                </div>
+            </div>
+            <!-- Third Row - Coverage Caps -->
+            <div class="slds-box slds-grid">
+                <!-- First Cell - What is to be displayed in this row -->
+                <div class="slds-col slds-size_1-of-6">
+                    <apex:pageBlock >
+                        Coverage Cap:
+                    </apex:pageBlock>
+                </div>
+                <!-- Second Cell - Bronze Coverage Cap -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Bronze_Coverage_Cap__c}
+                    </apex:pageBlock>
+                </div>
+                <!-- Third Cell - Silver Coverage Cap -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Silver_Coverage_Cap__c}
+                    </apex:pageBlock>
+                </div>
+                <!-- Final Cell - Gold Coverage Cap -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Gold_Coverage_Cap__c}
+                    </apex:pageBlock>
+                </div>
+            </div>
+            <!-- Fourth Row - Deductibles -->
+            <div class="slds-box slds-grid">
+                <!-- First Cell - What is to be displayed in this row -->
+                <div class="slds-col slds-size_1-of-6">
+                    <apex:pageBlock >
+                        Deductible:
+                    </apex:pageBlock>
+                </div>
+                <!-- Second Cell - Bronze Deductible -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Bronze_Deductible__c}
+                    </apex:pageBlock>
+                </div>
+                <!-- Third Cell - Silver Deductible -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Silver_Deductible__c}
+                    </apex:pageBlock>
+                </div>
+                <!-- Final Cell - Gold Deductible -->
+                <div class="slds-col slds-size_1-of-4">
+                    <apex:pageBlock >
+                        ${!acc.Gold_Deductible__c}
+                    </apex:pageBlock>
+                </div>
+            </div>
+            <!-- Final Row - Selection Buttons -->
+            <div class="slds-box slds-grid">
+                <!-- First Cell - Nothing -->
+                <div class="slds-col slds-size_1-of-6 slds-border_right">
+                        <!--Deliberately Empty-->
+                </div>
+                <!-- Second Cell - Select Button for Bronze Tier Policy -->
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:commandButton action="{!pickBronze}" value="Select Bronze" />
+                </div>
+                <!-- Third Cell - Select Button for Silver Tier Policy -->
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:commandButton action="{!pickSilver}" value="Select Silver" />
+                </div>
+                <!-- Final Cell - Select Button for Gold Tier Policy -->
+                <div class="slds-col slds-size_1-of-4 slds-border_right">
+                    <apex:commandButton action="{!pickGold}" value="Select Gold" />
+                </div>
+            </div>
+        </div>
+    </apex:form>>
+</apex:page>

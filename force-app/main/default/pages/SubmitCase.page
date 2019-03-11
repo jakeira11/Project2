@@ -1,0 +1,23 @@
+<apex:page controller="SubmitCaseCtrl" sidebar="false">
+        <apex:form >
+            <apex:pageBlock >
+                <apex:pageBlockSection >
+                    <!-- Page Heading -->
+                    <h1 style="font-size:30px">Submit Support Case</h1>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1">
+                    <!-- Display User Name Phone and Email -->
+                    <apex:outputField value="{!userContact.Name}"/>
+                    <apex:outputField value="{!userContact.Phone}"/>
+                    <apex:outputField value="{!userContact.Email}"/>
+                    <!-- Input fields for Subject and Description for the Case -->
+                    <apex:inputField value="{!newCase.Subject}"/>
+                    <apex:inputField value="{!newCase.Description}" style="width:100%"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockButtons location="bottom">
+                    <!-- Create and Save the Case -->
+                    <apex:commandButton action="{!save}" value="Save" id="save"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:form>
+</apex:page>
