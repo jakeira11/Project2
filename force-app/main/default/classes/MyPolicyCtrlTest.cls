@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//MyPolicy Controller Test
+//Test Class for the MyPolicy Page Controller
+//
+////////////////////////
+
+
 @isTest
 public class MyPolicyCtrlTest {
     @isTest

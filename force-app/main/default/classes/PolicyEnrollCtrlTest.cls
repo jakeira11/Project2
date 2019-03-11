@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//PolicyEnrollController Test
+//Test Class for the PolicyEnroll Page Controller
+//
+////////////////////////
+
+
 @isTest
 global with sharing class PolicyEnrollCtrlTest {
 

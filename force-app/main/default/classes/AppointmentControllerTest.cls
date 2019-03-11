@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//Appointment Controller Test
+// Test Class for the Appointment Controller
+//
+////////////////////////
+
+
 @isTest
 public class AppointmentControllerTest {
     @isTest

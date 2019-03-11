@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//RequesetAppointmentController
+//Controller for the Request Appointment Page 
+//
+////////////////////////
+
+
 public with sharing class RequestAppointmentCtrl {
     public Contact userContact {get; set;}
     public Appointment__c apt {get;set;}

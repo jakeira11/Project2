@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//SubmitCaseController Test
+//Test Class for the SubmitCase Page Controller
+//
+////////////////////////
+
+
 @isTest
 public with sharing class SubmitCaseCtrlTest {
     @isTest

@@ -1,7 +1,14 @@
-///////////////////////////////////////////////////////////////////
+////////////////////////
+//
+//Project 2 - JessiCorp
+//Appointment Controller
 //This class is a custom controller for the appointment object
 //that allows the user to perform pagenation and 
-///////////////////////////////////////////////////////////////////
+//
+////////////////////////
+
+
+
 public class AppointmentController {
     public List<Appointment__c> aptList{get;set;}
     public Appointment__c apt{get;set;}

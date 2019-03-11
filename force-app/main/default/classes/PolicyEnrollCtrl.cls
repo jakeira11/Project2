@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//PolicyEnrollController
+//Controller for the PolicyEnroll Page
+//
+////////////////////////
+
+
 public with sharing class PolicyEnrollCtrl {
     public Contact userContact {get; set;}
     public id userId {get; set;}

@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//MyPolicyCtrl
+//Controller for the MyPolicy Page 
+//
+////////////////////////
+
+
 public with sharing class MyPolicyCtrl {
     public Contact userContact {get; set;}
     public id userId {get; set;}

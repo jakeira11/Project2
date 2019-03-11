@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//DoctorLookup Controller
+//Controller for the DoctorLookup page
+//
+////////////////////////
+
+
 global with sharing class DoctorLookupCtrl {
     ApexPages.StandardController stdController;
     global List<SelectOption> radius {get;set;}
@@ -14,6 +23,9 @@ global with sharing class DoctorLookupCtrl {
     global String defaultaddr{get;set;}
     global Boolean isRendered {get;set;}
     global Boolean docRendered {get;set;}
+    global String docFirstName {get;set;}
+    global String docLastName {get;set;}
+    global String practiceName {get;set;}
 
     List<Contact> foundDocs = new List<Contact>();
     Contact selectedDoc {get;set;}
@@ -41,7 +53,10 @@ global with sharing class DoctorLookupCtrl {
         docRendered = false;
         
     }
-public List<Contact> getFoundDocs(){
+
+
+
+    public List<Contact> getFoundDocs(){
         return foundDocs;
     }
 
@@ -86,13 +101,17 @@ public List<Contact> getFoundDocs(){
                 ageRange.add(i);
             }
         }
-foundDocs = [
+
+
+        // Query for doctors that meet the user's search criteria 
+        foundDocs = [
             SELECT ID, AccountID, FirstName, LastName, Gender__c, In_Network__c, LanguageVF__c,
             Account.Name, Account.BillingStreet, Account.BillingCity, Account.BillingState
             FROM Contact
             WHERE Gender__c = :genderSelection
             AND Specialization__c INCLUDES (:specialSelect)
             AND Age__c IN :ageRange
+            AND LanguageVF__c = :languageSelection
             AND In_Network__c = :inNetwork
             
         ];
@@ -117,12 +136,16 @@ foundDocs = [
 
     public PageReference getDocInfo(){
         docRendered = true;
-/*
+        System.debug('docfirstname: ' + docFirstName);
+        // Need to filter by :practiceName to account for doctors with the same name
         selectedDoc = [
-            SELECT ID, FirstName, LastName
+            SELECT ID, FirstName, LastName, LanguageVF__c, Specialization__c,
+            Account.Name, Account.BillingStreet, 
+            Account.BillingCity, Account.BillingState, Account.BillingPostalCode
             FROM Contact
             WHERE FirstName = :docFirstName
-        ];*/
+            AND LastName = :docLastName
+        ];
 
         return null;
     }
@@ -166,6 +189,7 @@ foundDocs = [
         return options;
 
     }
+
     public List<SelectOption> getAgeItems(){
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption ('Any', 'Any'));

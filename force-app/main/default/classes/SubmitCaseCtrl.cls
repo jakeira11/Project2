@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//SubmitCaseController
+//Controller for the SubmitCase Page
+//
+////////////////////////
+
+
 public with sharing class SubmitCaseCtrl {
     public Case newCase {get;set;}
     public Contact userContact {get;set;}

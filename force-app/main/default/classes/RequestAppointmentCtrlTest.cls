@@ -1,3 +1,12 @@
+////////////////////////
+//
+//Project 2 - JessiCorp
+//RequestAppointmentController Test
+//Test Class for the RequestAppointment Page Controller
+//
+////////////////////////
+
+
 @isTest
 public with sharing class RequestAppointmentCtrlTest {
     @isTest
